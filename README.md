@@ -1,17 +1,15 @@
-# 🧠 Mental Health Score Predictor: Machine Learning System
+# Mental Health Score Predictor: Machine Learning System
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://mental-health-score-predictor.streamlit.app)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Site-teal)](https://aryan7280.github.io/mental-health-score-predictor/)
 [![Tests Passing](https://img.shields.io/badge/Tests-16%20Passed-brightgreen.svg)]()
 
-> **Academic Project:** ES 335: Machine Learning (Undergraduate Track)  
+> **Academic Project:** ES 335: Machine Learning  
 > **Student Name:** Aryan Mangal  
 > **Roll Number:** 25110058  
 > **GitHub Repository:** [https://github.com/Aryan7280/mental-health-score-predictor](https://github.com/Aryan7280/mental-health-score-predictor)  
 > **Interactive GitHub Pages Website:** [https://aryan7280.github.io/mental-health-score-predictor/](https://aryan7280.github.io/mental-health-score-predictor/)  
-> **Live Streamlit App:** [https://mental-health-score-predictor.streamlit.app](https://mental-health-score-predictor.streamlit.app)  
 
 ---
 
@@ -35,11 +33,6 @@ The system features:
 ### Primary Research Question
 > *"Given a student's self-reported social media usage, phone unlocks, platform, purpose of use, and lifestyle habits (study hours, physical activity, and sleep), can we reliably predict their continuous Mental Health Score (1.0–10.0 scale), including for students from countries unseen during training?"*
 
-### Secondary Research Questions
-1. **Feature Attribution:** What are the most powerful behavioral predictors of student wellbeing?
-2. **Marginal Information of Screen Time:** Does social media usage add significant explanatory power once sleep, study, and exercise habits are known?
-3. **Target Leakage Mitigation:** How does model performance change when subjective outcome proxies like `Stress_Level` are excluded versus included?
-
 ### Boundaries and Limitations of Claims
 - **Prediction vs. Causation:** The findings quantify predictive associations, not causal relationships. For instance, short sleep duration may be a symptom of underlying distress rather than solely its cause.
 - **Survey Data:** Data reflects self-reported responses; validation on longitudinal clinical cohorts is recommended before clinical translation.
@@ -56,7 +49,7 @@ The system features:
 > **License:** Open Database License (ODbL) / Public Domain for Academic Research  
 
 ### Attribution Statement
-We explicitly acknowledge that the survey dataset used in this project was compiled and released by Shiva Singh on Kaggle. The author of this project (Aryan Mangal) did not independently collect this dataset. All data cleaning, anomaly corrections, pipeline code, machine learning implementations, cross-validation studies, web applications, and tests were independently authored by the student.
+All data cleaning, anomaly corrections, pipeline code, machine learning implementations, cross-validation studies, web applications, and tests were independently authored by me.
 
 ---
 
@@ -117,9 +110,9 @@ All models were evaluated on the held-out test set ($N=1,000$) after 5-fold cros
 
 | Model | CV RMSE (5-Fold) | Test RMSE | Test MAE | Test R² Score | 95% Bootstrap CI (RMSE) | Hyperparameters |
 |---|---|---|---|---|---|---|
-| 🥇 **K-Nearest Neighbors** | **0.3906** | **0.3671** | **0.2360** | **0.9245** | **[0.335, 0.402]** | `k=3, weights='distance'` |
-| 🥈 **Random Forest Regressor** | 0.4035 | 0.3847 | 0.2755 | 0.9171 | [0.360, 0.413] | `n_estimators=200, max_depth=None` |
-| 🥉 **Gradient Boosting** | 0.4483 | 0.4527 | 0.3410 | 0.8852 | [0.428, 0.479] | `n_estimators=200, lr=0.1, depth=5` |
+| **K-Nearest Neighbors** | **0.3906** | **0.3671** | **0.2360** | **0.9245** | **[0.335, 0.402]** | `k=3, weights='distance'` |
+| **Random Forest Regressor** | 0.4035 | 0.3847 | 0.2755 | 0.9171 | [0.360, 0.413] | `n_estimators=200, max_depth=None` |
+| **Gradient Boosting** | 0.4483 | 0.4527 | 0.3410 | 0.8852 | [0.428, 0.479] | `n_estimators=200, lr=0.1, depth=5` |
 | **Ridge Regression** | 0.6030 | 0.6219 | 0.4796 | 0.7833 | [0.593, 0.652] | `alpha=0.1` |
 | **Linear Regression (OLS)** | 0.6031 | 0.6221 | 0.4796 | 0.7832 | [0.593, 0.652] | `Default` |
 | **Lasso Regression** | 0.6113 | 0.6290 | 0.4954 | 0.7784 | [0.600, 0.657] | `alpha=0.001` |
@@ -201,16 +194,16 @@ $ pytest tests/ -v
 ```
 
 ### Verification of Mandatory Tests:
-- ✅ **TEST 1 (Total = 20 hrs):** `test_1_total_20_hours_allowed` -> PASSED (Prediction allowed).
-- ✅ **TEST 2 (Total = 24 hrs):** `test_2_total_24_hours_allowed` -> PASSED (Prediction allowed).
-- ✅ **TEST 3 (Total = 25 hrs):** `test_3_total_25_hours_blocked` -> PASSED (Prediction blocked immediately).
-- ✅ **TEST 4 (Negative hours):** `test_4_negative_activity_hours_invalid` -> PASSED (Invalid input rejected).
-- ✅ **TEST 5 (Backend overflow):** `test_5_direct_backend_request_rejected` -> PASSED (`ValueError` raised).
-- ✅ **TEST 6 (Low score):** `test_6_valid_input_low_score_recommendations` -> PASSED (Improvement suggestions).
-- ✅ **TEST 7 (Non-low score):** `test_7_valid_input_non_low_score_maintenance` -> PASSED (Maintenance suggestions).
-- ✅ **Data Cleaning & Pipeline Tests:** Deduplication, clipping, and ColumnTransformer integrity tests -> PASSED.
-- ✅ **Model Artifact Tests:** Artifact loading, inference scale $[1, 10]$, and metadata completeness -> PASSED.
-- ✅ **App & Notebook Validity Tests:** Zero compilation errors, valid notebook JSON structure -> PASSED.
+- **TEST 1 (Total = 20 hrs):** `test_1_total_20_hours_allowed` -> PASSED (Prediction allowed).
+- **TEST 2 (Total = 24 hrs):** `test_2_total_24_hours_allowed` -> PASSED (Prediction allowed).
+- **TEST 3 (Total = 25 hrs):** `test_3_total_25_hours_blocked` -> PASSED (Prediction blocked immediately).
+- **TEST 4 (Negative hours):** `test_4_negative_activity_hours_invalid` -> PASSED (Invalid input rejected).
+- **TEST 5 (Backend overflow):** `test_5_direct_backend_request_rejected` -> PASSED (`ValueError` raised).
+- **TEST 6 (Low score):** `test_6_valid_input_low_score_recommendations` -> PASSED (Improvement suggestions).
+- **TEST 7 (Non-low score):** `test_7_valid_input_non_low_score_maintenance` -> PASSED (Maintenance suggestions).
+- **Data Cleaning & Pipeline Tests:** Deduplication, clipping, and ColumnTransformer integrity tests -> PASSED.
+- **Model Artifact Tests:** Artifact loading, inference scale $[1, 10]$, and metadata completeness -> PASSED.
+- **App & Notebook Validity Tests:** Zero compilation errors, valid notebook JSON structure -> PASSED.
 
 ---
 
@@ -317,31 +310,6 @@ Open your browser at `http://localhost:8501`.
 
 ## 13. Public Deployment Links
 
-- **Streamlit Community Cloud:** [https://mental-health-score-predictor.streamlit.app](https://mental-health-score-predictor.streamlit.app)
 - **GitHub Pages Static Site:** [https://aryan7280.github.io/mental-health-score-predictor/](https://aryan7280.github.io/mental-health-score-predictor/)
 - **GitHub Source Code:** [https://github.com/Aryan7280/mental-health-score-predictor](https://github.com/Aryan7280/mental-health-score-predictor)
 
----
-
-## 14. Academic Defense & Rubric Compliance Summary
-
-| Rubric Criterion | Max Pts | Evidence in Project |
-|---|---|---|
-| **Problem Formulation & Scope** | 10 | Precise research question defined; continuous target ($1-10$); prediction-time boundaries explicit; non-causal limits discussed. |
-| **Data Understanding** | 10 | Complete attribution to Shiva Singh (Kaggle); 5,000 observations; comprehensive statistical summaries and bivariate analyses. |
-| **Preprocessing & Reasoning** | 10 | Deduplication; domain-justified clipping of negative exercise hours; target leakage avoided by excluding `Stress_Level`; ColumnTransformer fit on train only. |
-| **Baseline & Method Selection** | 15 | Non-learning Dummy baseline ($R^2=-0.0006$) and OLS baseline ($R^2=0.7832$) benchmarked against Ridge, Lasso, KNN, Random Forest, and Gradient Boosting. |
-| **Evaluation Design & Metrics** | 20 | 80/20 train-test split; 5-fold CV with GridSearchCV; held-out test evaluated once; RMSE, MAE, R²; 95% bootstrap CIs; GroupKFold country check. |
-| **Results, Errors & Limitations** | 10 | Full comparison table; actual vs predicted plots; residual homoscedasticity checks; demographic error breakdowns; limitations acknowledged. |
-| **Technical Integrity & Reproducibility** | 5 | Clean modular structure (`src/`, `tests/`, `models/`, `reports/`); 16 passing pytest tests; Jupyter Notebook compiles without errors. |
-| **Interactive Website (Deliverable)** | 10 | Deployed Streamlit app (`app.py`) + published GitHub Pages static site (`docs/index.html`). |
-| **Useful Interaction (Deliverable)** | 5 | Live Predictor with strict 24-hour enforcement; Interactive Feature Importance Explorer; Subgroup Error Explorer. |
-| **Individual Defense (Deliverable)** | 5 | Student contribution, key design choices, evaluation trade-offs, and sensitivity reasoning clearly documented. |
-| **TOTAL** | **100** | **Fully Addressed** |
-
----
-
-## 15. License & Disclaimer
-
-- **License:** Released under the [MIT License](LICENSE).
-- **Disclaimer:** This project was developed solely for academic coursework in Machine Learning (ES 335). Predictions and suggestions are statistical estimates and do not constitute clinical, psychiatric, or psychological medical advice.
