@@ -1,0 +1,2 @@
+Country_GroupKFold_RMSE_Mean,Country_GroupKFold_RMSE_Std,Country_GroupKFold_MAE_Mean,Country_GroupKFold_R2_Mean
+0.8175,0.0555,0.6508,0.5476

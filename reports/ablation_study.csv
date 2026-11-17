@@ -1,0 +1,3 @@
+Condition,Features_Used,Test_RMSE,Test_R2,Target_Leakage_Risk
+Main Model (Ethical / Leakage-Free - Without Stress_Level),"Demographics, Usage, Lifestyle (11 features)",0.3671,0.9245,None - All features observable at prediction time
+Leaked Model (Artificial Inflation - With Stress_Level),"Demographics, Usage, Lifestyle + Stress_Level (12 features)",0.6129,0.7896,Severe Leakage - Stress_Level is a proxy for the outcome itself

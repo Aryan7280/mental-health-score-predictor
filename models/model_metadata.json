@@ -1,0 +1,27 @@
+{
+    "best_model_name": "K-Nearest Neighbors",
+    "best_params": "{'regressor__n_neighbors': 3, 'regressor__weights': 'distance'}",
+    "test_rmse": 0.3671,
+    "test_mae": 0.236,
+    "test_r2": 0.9245,
+    "threshold_25th": 5.1,
+    "numerical_features": [
+        "Age",
+        "Avg_Daily_Usage_Hours",
+        "Daily_Unlocks",
+        "Study_Hours",
+        "Physical_Activity_Hours",
+        "Sleep_Hours_Per_Night"
+    ],
+    "categorical_features": [
+        "Gender",
+        "Country",
+        "Academic_Level",
+        "Most_Used_Platform",
+        "Purpose_Of_Use"
+    ],
+    "target_column": "Mental_Health_Score",
+    "sample_size": 4998,
+    "train_size": 3998,
+    "test_size": 1000
+}
