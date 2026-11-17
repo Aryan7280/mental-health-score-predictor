@@ -120,9 +120,6 @@ pytest tests/
 To view the website locally, open `docs/index.html` in a browser. It needs no server and no build step. GitHub Pages serves
 the `docs/` folder.
 
-## 7. Repository layout
-
-See [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md).
 
 ## Acknowledgement
 
