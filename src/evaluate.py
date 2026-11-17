@@ -8,7 +8,7 @@ Generates:
 4. Feature importance plots (Linear/Ridge coefficients and Tree Gini importances)
 5. Demographic and subgroup error breakdown (Residuals by Gender, Academic Level, Country)
 6. Comprehensive correlation heatmap
-7. Exporting interactive Plotly JSON artifacts for web rendering
+7. Leakage ablation and country hold-out comparison
 """
 import os
 import sys
@@ -18,11 +18,10 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import plotly.express as px
-import plotly.graph_objects as go
 
 # Set MPLCONFIGDIR to avoid warnings
-os.environ["MPLCONFIGDIR"] = "/tmp/matplotlib"
+import matplotlib
+matplotlib.use("Agg")
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from src.preprocessing import (
@@ -30,7 +29,6 @@ from src.preprocessing import (
     NUMERICAL_FEATURES,
     CATEGORICAL_FEATURES,
     TARGET_COLUMN,
-    get_feature_names_from_preprocessor
 )
 
 
@@ -142,36 +140,11 @@ def generate_evaluation_figures():
     # ==========================================
     # FIGURE 5: Feature Importance Analysis
     # ==========================================
-    preprocessor = best_model.named_steps["preprocessor"]
-    regressor = best_model.named_steps["regressor"]
-    feature_names = get_feature_names_from_preprocessor(preprocessor)
-
-    if hasattr(regressor, "coef_"):
-        importances = regressor.coef_
-        imp_label = "Linear Coefficient (Standardized Effect Size)"
-        imp_df = pd.DataFrame({"Feature": feature_names, "Importance": importances})
-        imp_df["AbsImportance"] = imp_df["Importance"].abs()
-        top_imp = imp_df.sort_values("AbsImportance", ascending=False).head(15)
-        pal = ["#d62728" if x < 0 else "#2ca02c" for x in top_imp["Importance"]]
-    elif hasattr(regressor, "feature_importances_"):
-        importances = regressor.feature_importances_
-        imp_label = "Feature Importance (Gini / Impurity Reduction)"
-        imp_df = pd.DataFrame({"Feature": feature_names, "Importance": importances})
-        top_imp = imp_df.sort_values("Importance", ascending=False).head(15)
-        pal = "viridis"
-    else:
-        top_imp = pd.DataFrame({"Feature": NUMERICAL_FEATURES, "Importance": [1.0] * len(NUMERICAL_FEATURES)})
-        imp_label = "Importance"
-        pal = "Blues"
-
-    fig, ax = plt.subplots(figsize=(10, 6))
-    if hasattr(regressor, "coef_"):
-        sns.barplot(data=top_imp, x="Importance", y="Feature", palette=pal, ax=ax)
-    else:
-        sns.barplot(data=top_imp, x="Importance", y="Feature", palette=pal, ax=ax)
-    ax.set_title(f"Top 15 Most Influential Features ({best_model_name})", fontsize=13, fontweight="bold")
-    ax.set_xlabel(imp_label, fontsize=11, fontweight="bold")
-    ax.set_ylabel("")
+    perm_df = pd.read_csv("reports/permutation_importance.csv").sort_values("RMSE_Increase")
+    fig, ax = plt.subplots(figsize=(9, 5.5))
+    ax.barh(perm_df["Feature"], perm_df["RMSE_Increase"], xerr=perm_df["Std"], color="#2a6f97")
+    ax.set_title(f"Permutation importance on the test set ({best_model_name})", fontsize=13, fontweight="bold")
+    ax.set_xlabel("Increase in RMSE when the feature is shuffled")
     fig.savefig(f"{figures_dir}/05_feature_importances.png", dpi=300, bbox_inches="tight")
     plt.close()
     print("Saved 05_feature_importances.png")
@@ -199,15 +172,17 @@ def generate_evaluation_figures():
     # FIGURE 7: Target Leakage Comparison (With vs Without Stress_Level)
     # ==========================================
     ablation_df = pd.read_csv("reports/ablation_study.csv")
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13, 5))
-    sns.barplot(data=ablation_df, x="Test_RMSE", y="Condition", ax=ax1, palette=["#1f77b4", "#d62728"])
-    ax1.set_title("Test RMSE: Leakage-Free vs. Leaked Model", fontweight="bold")
-    ax1.set_xlabel("RMSE (Lower is Better)")
+    country_df = pd.read_csv("reports/country_generalization.csv")
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+    sns.barplot(data=ablation_df, x="CV_RMSE", y="Model", hue="Condition", ax=ax1, palette=["#2a6f97", "#c9a227"])
+    ax1.set_title("Stress_Level ablation (5-fold CV RMSE)", fontweight="bold")
     ax1.set_ylabel("")
-
-    sns.barplot(data=ablation_df, x="Test_R2", y="Condition", ax=ax2, palette=["#1f77b4", "#d62728"])
-    ax2.set_title("Test R²: Leakage-Free vs. Leaked Model", fontweight="bold")
-    ax2.set_xlabel("R² (Higher is Better)")
+    melted = country_df.melt(id_vars="Model", value_vars=["Random_KFold_RMSE", "Country_GroupKFold_RMSE"],
+                             var_name="Split", value_name="RMSE")
+    melted["Split"] = melted["Split"].map({"Random_KFold_RMSE": "Random 5-fold",
+                                           "Country_GroupKFold_RMSE": "Unseen countries (GroupKFold)"})
+    sns.barplot(data=melted, x="RMSE", y="Model", hue="Split", ax=ax2, palette=["#2a6f97", "#b5523b"])
+    ax2.set_title("Random split vs. unseen-country split (CV RMSE)", fontweight="bold")
     ax2.set_ylabel("")
     fig.savefig(f"{figures_dir}/07_leakage_ablation_comparison.png", dpi=300, bbox_inches="tight")
     plt.close()

@@ -1,2 +1,5 @@
-Country_GroupKFold_RMSE_Mean,Country_GroupKFold_RMSE_Std,Country_GroupKFold_MAE_Mean,Country_GroupKFold_R2_Mean
-0.8175,0.0555,0.6508,0.5476
+Model,Random_KFold_RMSE,Country_GroupKFold_RMSE,Country_GroupKFold_RMSE_Std,Country_GroupKFold_R2
+Baseline: Mean (Dummy),1.2631,1.2168,0.1133,-0.016
+Linear Regression,0.6031,0.7307,0.0994,0.6269
+K-Nearest Neighbors,0.3906,0.8278,0.0687,0.5159
+Random Forest,0.404,0.6803,0.0838,0.6694

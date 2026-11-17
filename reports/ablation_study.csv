@@ -1,3 +1,5 @@
-Condition,Features_Used,Test_RMSE,Test_R2,Target_Leakage_Risk
-Main Model (Ethical / Leakage-Free - Without Stress_Level),"Demographics, Usage, Lifestyle (11 features)",0.3671,0.9245,None - All features observable at prediction time
-Leaked Model (Artificial Inflation - With Stress_Level),"Demographics, Usage, Lifestyle + Stress_Level (12 features)",0.6129,0.7896,Severe Leakage - Stress_Level is a proxy for the outcome itself
+Model,Condition,CV_RMSE,CV_R2
+K-Nearest Neighbors,Without Stress_Level (used),0.3906,0.9039
+K-Nearest Neighbors,With Stress_Level (excluded),0.3923,0.9031
+Ridge Regression,Without Stress_Level (used),0.6037,0.7713
+Ridge Regression,With Stress_Level (excluded),0.599,0.7747

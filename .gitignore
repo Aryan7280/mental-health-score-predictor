@@ -44,5 +44,6 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Streamlit local state
-.streamlit/
+# Project structure documentation
+PROJECT_STRUCTURE.md
+

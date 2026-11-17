@@ -1,5 +1,6 @@
-Feature_Group,Test_RMSE,Test_MAE,Test_R2
-Demographics Only,1.2139,0.9564,0.1745
-"Lifestyle Only (Sleep, Study, Exercise)",0.7569,0.5942,0.6791
-"Digital Usage Only (Usage hrs, Unlocks, Platform, Purpose)",0.7414,0.5945,0.6921
-Full Feature Set (Combined),0.6217,0.4806,0.7835
+Feature_Group,KNN_CV_RMSE,KNN_CV_R2,Ridge_CV_RMSE,Ridge_CV_R2
+"Demographics only (age, gender, country, level)",1.2545,0.0102,1.1461,0.1756
+"Lifestyle only (sleep, study, exercise)",0.7875,0.6105,0.7274,0.6681
+"Digital use only (hours, unlocks, platform, purpose)",0.6659,0.7216,0.7227,0.6723
+Everything except country,0.4744,0.8582,0.6801,0.7097
+All features,0.3906,0.9039,0.6037,0.7713

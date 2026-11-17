@@ -1,0 +1,18 @@
+group,value,n,RMSE,MAE,bias
+Gender,Female,453,0.3575,0.2293,-0.0357
+Gender,Male,547,0.3748,0.2415,-0.0265
+Academic_Level,Graduate,186,0.4016,0.2568,-0.0387
+Academic_Level,High School,89,0.4512,0.2778,-0.0636
+Academic_Level,Undergraduate,725,0.3457,0.2255,-0.0246
+country_group,Australia,43,0.2617,0.1828,-0.0345
+country_group,Canada,46,0.4449,0.2669,-0.1126
+country_group,India,86,0.3413,0.223,-0.0658
+country_group,Other,366,0.4616,0.3012,-0.0344
+country_group,Smaller countries,350,0.2358,0.1701,-0.0058
+country_group,UK,35,0.2838,0.1982,0.001
+country_group,USA,74,0.4099,0.2692,-0.0512
+band,< 5.1 (bottom 25%),245,0.3603,0.2282,0.1355
+band,5.1 - 6.0,178,0.3981,0.2647,-0.0911
+band,6.0 - 7.0,243,0.3492,0.22,-0.0631
+band,7.0 - 8.0,180,0.318,0.2233,-0.0101
+band,>= 8.0,154,0.4179,0.2553,-0.1983

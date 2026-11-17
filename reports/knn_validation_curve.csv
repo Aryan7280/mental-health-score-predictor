@@ -1,0 +1,13 @@
+k,weights,CV_RMSE,CV_RMSE_Std
+3,distance,0.3906,0.0286
+5,distance,0.3999,0.02
+7,distance,0.4119,0.0178
+9,distance,0.4243,0.0182
+11,distance,0.4355,0.0189
+15,distance,0.4549,0.0182
+3,uniform,0.4543,0.0281
+5,uniform,0.4849,0.0172
+7,uniform,0.5052,0.0168
+9,uniform,0.5199,0.0185
+11,uniform,0.5311,0.0212
+15,uniform,0.5482,0.0207
