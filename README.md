@@ -5,7 +5,9 @@
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Site-teal)](https://aryan7280.github.io/mental-health-score-predictor/)
 
 > **ES 335: Machine Learning** · Aryan Mangal (25110058)
+> 
 > **Website:** https://aryan7280.github.io/mental-health-score-predictor/
+> 
 > **Repository:** https://github.com/Aryan7280/mental-health-score-predictor
 
 The website (`docs/`) is the main deliverable. It explains the problem, data, method, evaluation, results, errors and
